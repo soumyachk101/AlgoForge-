@@ -1,0 +1,24 @@
+
+> algo-arena@0.1.0 lint
+> eslint
+
+
+D:\AlgoForge\algo-arena\src\app\(dashboard)\dashboard\page.tsx
+  115:26  error  'Button' is not defined  react/jsx-no-undef
+
+D:\AlgoForge\algo-arena\src\app\(dashboard)\problems\[slug]\page.tsx
+  7:10  warning  'Separator' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\AlgoForge\algo-arena\src\app\api\submissions\route.ts
+  4:11  warning  'body' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\AlgoForge\algo-arena\src\components\editor\code-editor.tsx
+  25:44  warning  'editor' is defined but never used  @typescript-eslint/no-unused-vars
+  25:52  warning  'monaco' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\AlgoForge\algo-arena\src\components\problems\problem-table.tsx
+   4:32  warning  'Lock' is defined but never used    @typescript-eslint/no-unused-vars
+  15:10  warning  'Button' is defined but never used  @typescript-eslint/no-unused-vars
+
+Γ£û 7 problems (1 error, 6 warnings)
+
