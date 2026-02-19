@@ -1,17 +1,11 @@
 "use client"
 
 import Link from "next/link"
-import { CheckCircle2, Circle } from "lucide-react"
+import { CheckCircle2, Circle, ArrowRight } from "lucide-react"
 
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
 
 const problems = [
     {
@@ -98,76 +92,69 @@ const problems = [
 
 export function ProblemTable() {
     return (
-        <div className="rounded-md border">
-            <Table>
-                <TableHeader>
-                    <TableRow>
-                        <TableHead className="w-[50px]">Status</TableHead>
-                        <TableHead>Title</TableHead>
-                        <TableHead>Difficulty</TableHead>
-                        <TableHead>Acceptance</TableHead>
-                        <TableHead className="hidden md:table-cell">Tags</TableHead>
-                    </TableRow>
-                </TableHeader>
-                <TableBody>
-                    {problems.map((problem) => (
-                        <TableRow key={problem.id}>
-                            <TableCell>
-                                {problem.status === "solved" ? (
-                                    <CheckCircle2 className="h-4 w-4 text-green-500" />
-                                ) : problem.status === "attempted" ? (
-                                    <Circle className="h-4 w-4 text-amber-500 fill-amber-500" />
-                                ) : (
-                                    <Circle className="h-4 w-4 text-muted-foreground" />
-                                )}
-                            </TableCell>
-                            <TableCell className="font-medium">
-                                <Link
-                                    href={`/problems/${problem.id}`}
-                                    className="hover:underline hover:text-primary"
-                                >
-                                    {problem.title}
-                                </Link>
-                            </TableCell>
-                            <TableCell>
-                                <Badge
-                                    variant={
-                                        problem.difficulty === "Easy"
-                                            ? "secondary" // Greenish in custom theme or handle manually
-                                            : problem.difficulty === "Medium"
-                                                ? "default" // Amber/Warning
-                                                : "destructive" // Red
-                                    }
-                                    className={
-                                        problem.difficulty === "Easy"
-                                            ? "bg-green-500/10 text-green-600 hover:bg-green-500/20 dark:text-green-400"
-                                            : problem.difficulty === "Medium"
-                                                ? "bg-amber-500/10 text-amber-600 hover:bg-amber-500/20 dark:text-amber-400"
-                                                : "bg-red-500/10 text-red-600 hover:bg-red-500/20 dark:text-red-400"
-                                    }
-                                >
-                                    {problem.difficulty}
-                                </Badge>
-                            </TableCell>
-                            <TableCell>{problem.acceptance}</TableCell>
-                            <TableCell className="hidden md:table-cell">
-                                <div className="flex gap-1 flex-wrap">
-                                    {problem.tags.slice(0, 3).map((tag) => (
-                                        <Badge key={tag} variant="outline" className="text-xs">
-                                            {tag}
-                                        </Badge>
-                                    ))}
-                                    {problem.tags.length > 3 && (
-                                        <Badge variant="outline" className="text-xs">
-                                            +{problem.tags.length - 3}
-                                        </Badge>
-                                    )}
-                                </div>
-                            </TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {problems.map((problem) => (
+                <Card
+                    key={problem.id}
+                    className="group relative flex flex-col justify-between p-6 transition-transform hover:-translate-y-1 hover:shadow-lg"
+                >
+                    <div className="space-y-4">
+                        <div className="flex items-start justify-between">
+                            <Badge
+                                variant={
+                                    problem.difficulty === "Easy"
+                                        ? "secondary"
+                                        : problem.difficulty === "Medium"
+                                            ? "default"
+                                            : "destructive"
+                                }
+                                className={
+                                    problem.difficulty === "Easy"
+                                        ? "bg-green-500/10 text-green-600 hover:bg-green-500/20 shadow-skeuo-inset"
+                                        : problem.difficulty === "Medium"
+                                            ? "bg-amber-500/10 text-amber-600 hover:bg-amber-500/20 shadow-skeuo-inset"
+                                            : "bg-red-500/10 text-red-600 hover:bg-red-500/20 shadow-skeuo-inset"
+                                }
+                            >
+                                {problem.difficulty}
+                            </Badge>
+                            {problem.status === "solved" ? (
+                                <CheckCircle2 className="h-5 w-5 text-green-500 drop-shadow-sm" />
+                            ) : problem.status === "attempted" ? (
+                                <Circle className="h-5 w-5 text-amber-500 fill-amber-500 drop-shadow-sm" />
+                            ) : (
+                                <div className="h-5 w-5 rounded-full bg-muted/50 shadow-skeuo-inset" />
+                            )}
+                        </div>
+
+                        <div>
+                            <h3 className="text-xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors">
+                                {problem.title}
+                            </h3>
+                            <p className="text-sm text-muted-foreground mt-2">
+                                Acceptance: {problem.acceptance}
+                            </p>
+                        </div>
+
+                        <div className="flex gap-2 flex-wrap">
+                            {problem.tags.slice(0, 3).map((tag) => (
+                                <span key={tag} className="text-xs px-2 py-1 rounded-md bg-background/50 text-muted-foreground shadow-skeuo-inset">
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="mt-6">
+                        <Link href={`/problems/${problem.id}`} className="w-full">
+                            <Button variant="skeuo" className="w-full rounded-xl group-hover:bg-primary group-hover:text-primary-foreground">
+                                Solve Problem
+                                <ArrowRight className="ml-2 h-4 w-4" />
+                            </Button>
+                        </Link>
+                    </div>
+                </Card>
+            ))}
         </div>
     )
 }

@@ -1,14 +1,8 @@
 import { Metadata } from "next"
-import { Activity, CreditCard, DollarSign, Users } from "lucide-react"
+import { Activity, CreditCard, DollarSign, Users, Trophy, Flame, Target } from "lucide-react"
 
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { StatsCard } from "@/components/dashboard/stats-card"
 
 export const metadata: Metadata = {
     title: "Dashboard",
@@ -17,105 +11,75 @@ export const metadata: Metadata = {
 
 export default function DashboardPage() {
     return (
-        <div className="flex flex-1 flex-col gap-4 md:gap-8">
-            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">
-                            Total Solved
-                        </CardTitle>
-                        <Activity className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold">128</div>
-                        <p className="text-xs text-muted-foreground">
-                            +12 from last week
-                        </p>
-                    </CardContent>
-                </Card>
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">
-                            Current Streak
-                        </CardTitle>
-                        <Users className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold">5 Days</div>
-                        <p className="text-xs text-muted-foreground">
-                            Keep it up!
-                        </p>
-                    </CardContent>
-                </Card>
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Global Rank</CardTitle>
-                        <CreditCard className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold">#1,234</div>
-                        <p className="text-xs text-muted-foreground">
-                            Top 15%
-                        </p>
-                    </CardContent>
-                </Card>
-                <Card>
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium">Contest Rating</CardTitle>
-                        <DollarSign className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold">1540</div>
-                        <p className="text-xs text-muted-foreground">
-                            +25 last contest
-                        </p>
-                    </CardContent>
-                </Card>
+        <div className="flex flex-1 flex-col gap-8 p-4">
+            <div className="flex items-center justify-between">
+                <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
+                <div className="flex items-center gap-2">
+                    <Button className="h-10 px-4 rounded-xl bg-primary text-primary-foreground shadow-skeuo hover:shadow-skeuo-inset active:scale-[0.98] transition-all">
+                        Daily Challenge
+                    </Button>
+                </div>
             </div>
-            <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
-                <Card className="xl:col-span-2">
-                    <CardHeader className="flex flex-row items-center">
-                        <div className="grid gap-2">
-                            <CardTitle>Recent Activity</CardTitle>
-                            <CardDescription>
-                                Recent problems you have solved.
-                            </CardDescription>
-                        </div>
-                    </CardHeader>
-                    <CardContent>
-                        {/* List of recent problems */}
-                        <div className="space-y-4">
-                            {[1, 2, 3].map((i) => (
-                                <div key={i} className="flex items-center">
-                                    <div className="ml-4 space-y-1">
-                                        <p className="text-sm font-medium leading-none">
-                                            Two Sum
-                                        </p>
-                                        <p className="text-sm text-muted-foreground">
-                                            Easy • 10 mins ago
-                                        </p>
+
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+                <StatsCard
+                    title="Total Solved"
+                    value="128"
+                    description="+12 from last week"
+                    icon={Activity}
+                />
+                <StatsCard
+                    title="Current Streak"
+                    value="5 Days"
+                    description="Keep it up!"
+                    icon={Flame}
+                />
+                <StatsCard
+                    title="Global Rank"
+                    value="#1,234"
+                    description="Top 15%"
+                    icon={Trophy}
+                />
+                <StatsCard
+                    title="Contest Rating"
+                    value="1540"
+                    description="+25 last contest"
+                    icon={Target}
+                />
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7">
+                <div className="col-span-4 rounded-2xl bg-clay dark:bg-zinc-900 p-6 shadow-skeuo">
+                    <div className="flex flex-col space-y-1.5 mb-6">
+                        <h3 className="font-semibold leading-none tracking-tight">Activity Heatmap</h3>
+                        <p className="text-sm text-muted-foreground">Your submission history over the last year.</p>
+                    </div>
+                    <div className="h-[200px] w-full flex items-center justify-center bg-background/50 rounded-xl shadow-skeuo-inset text-muted-foreground">
+                        {/* Placeholder for real heatmap */}
+                        [Heatmap Visualization Placeholder]
+                    </div>
+                </div>
+
+                <div className="col-span-3 rounded-2xl bg-clay dark:bg-zinc-900 p-6 shadow-skeuo">
+                    <div className="flex flex-col space-y-1.5 mb-6">
+                        <h3 className="font-semibold leading-none tracking-tight">Recent Activity</h3>
+                        <p className="text-sm text-muted-foreground">Recent problems you have solved.</p>
+                    </div>
+                    <div className="space-y-4">
+                        {[1, 2, 3, 4].map((i) => (
+                            <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-background/50 shadow-skeuo-inset hover:shadow-skeuo transition-all cursor-pointer">
+                                <div className="flex items-center gap-3">
+                                    <div className="h-2 w-2 rounded-full bg-green-500" />
+                                    <div className="space-y-1">
+                                        <p className="text-sm font-medium leading-none">Two Sum</p>
+                                        <p className="text-xs text-muted-foreground">Easy • 10 mins ago</p>
                                     </div>
-                                    <div className="ml-auto font-medium">Solved</div>
                                 </div>
-                            ))}
-                        </div>
-                    </CardContent>
-                </Card>
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Daily Challenge</CardTitle>
-                        <CardDescription>
-                            Solve the daily problem to keep your streak alive.
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent className="grid gap-4">
-                        <div className="flex items-center justify-between">
-                            <span className="font-semibold">Merge Intervals</span>
-                            <span className="text-amber-500 text-sm">Medium</span>
-                        </div>
-                        <Button className="w-full">Solve Now</Button>
-                    </CardContent>
-                </Card>
+                                <div className="text-xs font-medium text-green-600 bg-green-500/10 px-2 py-1 rounded-lg">Solved</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
     )

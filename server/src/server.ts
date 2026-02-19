@@ -1,9 +1,29 @@
-import app from './app';
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
+import morgan from 'morgan';
+import authRoutes from './routes/auth';
+import problemRoutes from './routes/problems';
+import submissionRoutes from './routes/submissions';
 
-const PORT = process.env.PORT || 5000;
 
-const server = app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+const app = express();
+const port = process.env.PORT || 5000;
+
+app.use(cors());
+app.use(morgan('dev'));
+app.use(express.json());
+
+app.use('/api/auth', authRoutes);
+app.use('/api/problems', problemRoutes);
+app.use('/api/submissions', submissionRoutes);
+
+app.get('/', (_req, res) => {
+    res.send('AlgoForge API is running');
+});
+
+const server = app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });
 
 process.on('SIGTERM', () => {
