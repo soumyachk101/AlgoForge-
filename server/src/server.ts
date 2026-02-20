@@ -22,13 +22,17 @@ app.get('/', (_req, res) => {
     res.send('AlgoForge API is running');
 });
 
-const server = app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
-
-process.on('SIGTERM', () => {
-    console.log('SIGTERM signal received: closing HTTP server');
-    server.close(() => {
-        console.log('HTTP server closed');
+if (process.env.NODE_ENV !== 'production') {
+    const server = app.listen(port, () => {
+        console.log(`Server is running on port ${port}`);
     });
-});
+
+    process.on('SIGTERM', () => {
+        console.log('SIGTERM signal received: closing HTTP server');
+        server.close(() => {
+            console.log('HTTP server closed');
+        });
+    });
+}
+
+export default app;

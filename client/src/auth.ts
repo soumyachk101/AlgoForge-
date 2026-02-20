@@ -29,7 +29,8 @@ export const config = {
     callbacks: {
         authorized({ request, auth }) {
             const { pathname } = request.nextUrl
-            if (pathname === "/dashboard") return !!auth
+            if (pathname === "/dashboard" || pathname.startsWith("/dashboard/")) return !!auth
+            if (pathname === "/problems" || pathname.startsWith("/problems/")) return true // Allow public access to problems
             return true
         },
     },
